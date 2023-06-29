@@ -8,7 +8,7 @@
  *                   Program Constants: Single floor travel time: 10
  *
  * Assumptions:
- * 1) All floor numbers are positive with 1 being the ground floor.
+ * 1) Assumes that floor numbers can be negative an that ground floor is 0.
  */
 public class Elevator {
 
@@ -16,18 +16,22 @@ public class Elevator {
 
     public static void main(String[] args) {
         int startingFloor = getStartingFloor(args);
+        System.out.println(startingFloor);
     }
 
     /**
-     * Gets the floor number for the starting floor option
+     * Gets the floor number for the starting floor option.
      * @param args  arguments passed into program
      * @return      starting floor number
      */
     private static int getStartingFloor(String[] args) {
-        int startingFloor = -1;
+        int startingFloor = 0;
+        boolean argFound = false;
+
         for (int i = 0; i < args.length; i++) {
             // Look for -start and convert the next arg to a number for the start floor
             if (args[i].equals(START_OPTION) && i < args.length - 1) {
+                argFound = true;
                 try {
                     startingFloor = Integer.valueOf(args[i + 1]);
                 }
@@ -39,7 +43,7 @@ public class Elevator {
         }
 
         // -start not found, print error
-        if (startingFloor == -1) {
+        if (!argFound) {
             System.out.println("ERROR: -start option not specified\n");
             printUsage();
         }
