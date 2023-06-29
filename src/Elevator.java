@@ -1,3 +1,4 @@
+import java.lang.Math;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -18,10 +19,39 @@ public class Elevator {
 
     public static final String FLOORS_OPTION = "-floors";
     public static final String START_OPTION = "-start";
+    public static final int TRAVEL_TIME_PER_FLOOR = 10;
 
     public static void main(String[] args) {
         int startingFloor = getStartingFloor(args);
         List<Integer> floors = getFloorsToVisit(args);
+        int travelTime = visitFloors(startingFloor, floors);
+
+        // Print out results
+        System.out.println("Total travel time: " + travelTime);
+        System.out.print("Order of floors visited: " + startingFloor);
+        for ( int floor : floors) {
+            System.out.print(", " + floor);
+        }
+        System.out.println();
+    }
+
+    /**
+     * Travel to all the floors in the list
+     * @param startingFloor Floor that the elevator starts on
+     * @param floors        List of floors to stop at.
+     * @return              The total time spent traveling.
+     */
+    private static int visitFloors(int startingFloor, List<Integer> floors) {
+        int currentFloor = startingFloor;
+        int travelTime = 0;
+
+        for (int nextFloor :
+                floors) {
+            travelTime += Math.abs(currentFloor - nextFloor) * TRAVEL_TIME_PER_FLOOR;
+            currentFloor = nextFloor;
+        }
+
+        return travelTime;
     }
 
     /**
