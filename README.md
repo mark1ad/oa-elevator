@@ -14,3 +14,10 @@ Provide code that simulates an elevator. You are free to use any language.
 ## Assumptions
 
 - Floor numbers can be negative with the first floor being 0
+
+## To Run
+
+```
+cd src
+java Elevator.java -start n -floors x,y,...
+```
